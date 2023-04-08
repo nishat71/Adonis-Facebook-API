@@ -23,6 +23,8 @@ Route.post('/likes/:id', 'LikesController.update').as('likes_update');
 
 Route.post('/comments', 'CommentsController.store').as('comments_store');
 
+Route.post('/replies', 'RepliesController.store').as('replies_store');
+
 
 
 
