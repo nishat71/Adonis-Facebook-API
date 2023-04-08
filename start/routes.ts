@@ -9,14 +9,19 @@ Route.get('/', async ({ view }) => {
 })
 
 
-Route.get('/userInfo', 'UsersController.view').as('userInfo_view');
-Route.post('/userInfo', 'UsersController.store').as('userInfo_store');
-Route.post('/userInfo/:id', 'UsersController.update').as('userInfo_update');
-Route.delete('/userInfo/:id', 'UsersController.destroy').as('userInfo_delete');
+Route.get('/posts', 'PostsController.view').as('posts_view');
+Route.post('/posts', 'PostsController.store').as('posts_store');
+Route.post('/posts/:id', 'PostsController.update').as('posts_update');
+Route.delete('/posts/:id', 'PostsController.destroy').as('posts_delete');
 
 
-Route.get('/userInfo/likes', 'LikesController.view').as('userInfo_likeView');
-Route.post('/userInfo/likes', 'LikesController.store').as('userInfo_likeStore');
+Route.get('/likes', 'LikesController.view').as('likes_view');
+Route.post('/likes', 'LikesController.store').as('likes_store');
+Route.post('/likes/:id', 'LikesController.update').as('likes_update');
+
+
+
+Route.post('/comments', 'CommentsController.store').as('comments_store');
 
 
 

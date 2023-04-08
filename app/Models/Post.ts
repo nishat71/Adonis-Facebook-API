@@ -22,7 +22,7 @@ export default class Post extends BaseModel {
 
 
   @column()
-  public disabled: string
+  public disabled: boolean
 
 
   // @column()

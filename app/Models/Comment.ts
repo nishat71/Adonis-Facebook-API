@@ -11,13 +11,16 @@ export default class Comment extends BaseModel {
   public post_id: number
 
 
-  @column()
-  public profile_id: number
+  // @column()
+  // public profile_id: number
 
 
   @column()
   public comment_text: string
 
+
+  @column()
+  public comment_author: string
 
 
   @column.dateTime({ autoCreate: true })
@@ -29,7 +32,7 @@ export default class Comment extends BaseModel {
 
   @hasMany(() => Reply, {
     localKey: 'id', 
-    foreignKey: 'profile_id',
+    foreignKey: 'comment_id',
   })
   public replies: HasMany<typeof Reply>
 }

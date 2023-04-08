@@ -17,55 +17,50 @@ export default class UsersController {
     // }
 
 
-    public async view() {
-        const userPost = await Post.query().orderBy('id', 'desc')
-            .preload('comments', (commentsQuery) => {
-                commentsQuery.preload('replies')
-            })
-            .preload('likes')
-        return userPost;
-    }
 
 
+    //  public async index({view}){
+    //    const upUser= await Post.query()
+    //    .preload("reacts")
+    //    .preload("comments",(replyQ)=>{
+    //     replyQ.preload("replies")
+    //     }).orderBy('posts.id', 'desc')
+    //    return upUser
+    // }
 
-
-    public async store({ response, request }) {
-        const payload = await request.all()
-        console.log(payload);
-        await Post.create({
-            user_id: payload.user_id,
-            post_text: payload.post_text,
-            disabled: payload.disabled
-        })
-        return response;
-    }
-
-
-
-    public async update({ request, params }) {
-        const payload = await request.all()
-        await Post.query().where('id', params.id).update({
-            post_text: payload.post_text
-        });
-    }
-
-
-    public async destroy({ params, response }) {
-        const post = await Post.findBy('id', params.id);
-        if (post) {
-            post.delete();
-            return response.redirect().back();
-        }
-    }
-
-    // public async view() {
-    //     const newUser = await User.query().preload('posts', (postsQuery) => {
-    //         postsQuery.preload('likes')
-    //         // postsQuery.preload('comments')
-    //         postsQuery.preload('comments', (commentsQuery) => {
-    //             commentsQuery.preload('replies')
-    //         })
+    // public async store({response,request}){
+    //     const payload= await request.all()
+    //     await Post.create({
+    //         user_id:payload.user_id,
+    //         post_desc:payload.post_desc,
+    //         disabled:payload.disabled
     //     })
-    //     return newUser;
+    // }
+    // public async update({request,response,params}){
+    //     const payload = await request.all()
+    //     await Post.query().where('id',params.id).update({
+    //         post_desc:payload.post_desc
+    //     })
+    // }
+    // public async delete({request,params}){
+    //     const post = await Post.findOrFail(params.id)
+    //     await post.delete()
+    // }
+
+
+
+
+    // public async store({response,request}){
+    //     const payload= await request.all()
+    //     await React.create({
+    //         post_id:payload.post_id,
+    //         total_react:payload.total_react,
+    //     })
+    // }
+    // public async update({response,request,params}){
+    //     const payload = await request.all()
+    //     await React.query().where('post_id',params.id).update({
+    //         total_react:payload.total_react
+    //     })
     // }
 }

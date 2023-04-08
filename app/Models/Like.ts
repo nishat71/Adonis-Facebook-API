@@ -14,7 +14,8 @@ export default class Like extends BaseModel {
 
 
   @column()
-  public like_count: number
+  public total_like: number
+  // public like_count: number
 
 
 

@@ -10,14 +10,26 @@ export default class LikesController {
         const TotalLikeCount = await Like.query()
         return TotalLikeCount;
     }
-    
+
     public async store({ response, request }) {
         const payload = await request.all()
         console.log(payload);
         await Like.create({
             post_id: payload.post_id,
-            like_count: payload.like_count,
+            total_like: payload.total_like,
+            // like_count: payload.like_count,
+            // profile_id: payload.profile_id
         })
         return response;
     }
+
+
+    public async update({ request, params }) {
+        const payload = await request.all()
+        await Like.query().where('post_id', params.id).update({
+            total_like: payload.total_like
+            // like_count: payload.like_count
+        });
+    }
+
 }
