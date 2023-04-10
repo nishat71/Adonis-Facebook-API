@@ -7,15 +7,23 @@ import Like from 'App/Models/Like';
 
 
 export default class UsersController {
-    // public async view({view}) {
-    //     const users = await Database.from('users').select('*');
-    //     return view.render('userInfo/view', { users })
-    // }
 
-    // public create({view}) {
-    //     return view.render('userInfo/create')
-    // }
+    public async view() {
+        const users = await User.query().preload('posts')
+        return users;
+    }
 
+
+    public async store({ response, request }) {
+        const payload = await request.all()
+        console.log(payload);
+        await User.create({
+            name: payload.name,
+            email: payload.email,
+            password: payload.password
+        })
+        return response;
+    }
 
 
 

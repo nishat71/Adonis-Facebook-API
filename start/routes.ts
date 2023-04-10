@@ -25,6 +25,9 @@ Route.post('/comments', 'CommentsController.store').as('comments_store');
 
 Route.post('/replies', 'RepliesController.store').as('replies_store');
 
+Route.get('/user', 'UsersController.view').as('users_view');
+Route.post('/user', 'UsersController.store').as('users_store');
+
 
 
 

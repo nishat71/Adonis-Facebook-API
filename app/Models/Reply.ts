@@ -9,6 +9,9 @@ export default class Reply extends BaseModel {
   public profile_id: number
 
   @column()
+  public post_id: number
+  
+  @column()
   public comment_id: number
 
   @column()
