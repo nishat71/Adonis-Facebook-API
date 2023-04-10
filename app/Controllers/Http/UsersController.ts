@@ -9,7 +9,7 @@ import Like from 'App/Models/Like';
 export default class UsersController {
 
     public async view() {
-        const users = await User.query().preload('posts')
+        const users = await User.all();
         return users;
     }
 

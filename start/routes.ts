@@ -25,21 +25,24 @@ Route.post('/comments', 'CommentsController.store').as('comments_store');
 
 Route.post('/replies', 'RepliesController.store').as('replies_store');
 
+
+
 Route.get('/user', 'UsersController.view').as('users_view');
 Route.post('/user', 'UsersController.store').as('users_store');
 
 
 
+Route.post('login', async ({ auth, request, response }) => {
+  const payload = request.all()
 
+  const email = payload.email
+  const password = payload.password
 
-// Route.get('/userInfo/create', 'UsersController.create').as('userInfo_create');
+  try {
+    await auth.use('web').attempt(email, password)
+    response.redirect('/')
+  } catch {
+    return response.badRequest('Invalid credentials')
+  }
+})
 
-//view
-// Route.get('/userInfo', async (ctx) => {
-//  return new UsersController().view(ctx)
-// }).as('userInfo_view');
-
-// post
-// Route.post('/userInfo', ({ request }) => {
-//   return request.body();
-// }).as('userInfo.create');
