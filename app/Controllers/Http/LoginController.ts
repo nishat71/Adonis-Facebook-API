@@ -4,13 +4,12 @@ export default class LoginController {
 
     public async store({ auth, request, response }) {
         const payload = request.all()
-        
+
         const email = payload.email
         const password = payload.password
 
-        await auth.use('web').attempt(email, password)
-            response.redirect('/')
-
+        return await auth.use('web').attempt(email, password)
+        // return response.redirect('/')
 
         // try {
         //     await auth.use('web').attempt(email, password)
