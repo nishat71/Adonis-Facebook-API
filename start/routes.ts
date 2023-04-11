@@ -12,7 +12,7 @@ Route.get('/', async ({ view }) => {
 Route.get('/posts', 'PostsController.view').as('posts_view');
 Route.post('/posts', 'PostsController.store').as('posts_store');
 Route.post('/posts/:id', 'PostsController.update').as('posts_update');
-Route.delete('/posts/:id', 'PostsController.destroy').as('posts_delete');
+Route.post('/postsDestroy/:id', 'PostsController.destroy').as('posts_delete');
 
 
 Route.get('/likes', 'LikesController.view').as('likes_view');
@@ -27,12 +27,12 @@ Route.post('/replies', 'RepliesController.store').as('replies_store');
 
 
 
-Route.get('/user', 'UsersController.view').as('users_view');
-Route.post('/user', 'UsersController.store').as('users_store');
+Route.get('/users', 'UsersController.view').as('users_view');
+Route.post('/users', 'UsersController.store').as('users_store');
 
 
 
-Route.post('login', async ({ auth, request, response }) => {
+Route.post('/login', async ({ auth, request, response }) => {
   const payload = request.all()
 
   const email = payload.email
@@ -44,5 +44,14 @@ Route.post('login', async ({ auth, request, response }) => {
   } catch {
     return response.badRequest('Invalid credentials')
   }
+})
+
+
+
+
+
+Route.post('/logout', async ({ auth, response }) => {
+  await auth.use('web').logout()
+  response.redirect('/login')
 })
 

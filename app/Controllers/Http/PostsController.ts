@@ -46,6 +46,8 @@ export default class PostsController {
         }
     }
 
+
+
     // public async view() {
     //     const newUser = await User.query().preload('posts', (postsQuery) => {
     //         postsQuery.preload('likes')

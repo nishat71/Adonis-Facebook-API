@@ -14,9 +14,11 @@ export default class UsersController {
     }
 
 
+
     public async store({ response, request }) {
         const payload = await request.all()
         console.log(payload);
+
         await User.create({
             name: payload.name,
             email: payload.email,
@@ -25,6 +27,22 @@ export default class UsersController {
         return response;
     }
 
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
