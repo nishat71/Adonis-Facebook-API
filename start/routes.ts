@@ -31,6 +31,7 @@ Route.get('/users', 'UsersController.view').as('users_view');
 Route.post('/users', 'UsersController.store').as('users_store');
 
 
+// Route.post('/login', 'LoginController').as('login_store');
 
 Route.post('/login', async ({ auth, request, response }) => {
   const payload = request.all()
@@ -38,15 +39,16 @@ Route.post('/login', async ({ auth, request, response }) => {
   const email = payload.email
   const password = payload.password
 
-  try {
-    await auth.use('web').attempt(email, password)
-    response.redirect('/')
-  } catch {
-    return response.badRequest('Invalid credentials')
-  }
+  await auth.use('web').attempt(email, password)
+  response.redirect('/')
+  
+  // try {
+  //   await auth.use('web').attempt(email, password)
+  //   response.redirect('/')
+  // } catch {
+  //   return response.badRequest('Invalid credentials')
+  // }
 })
-
-
 
 
 

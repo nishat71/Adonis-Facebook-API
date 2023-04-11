@@ -1,8 +1,7 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database';
 import User from 'App/Models/User';
-import Post from 'App/Models/Post';
-import Like from 'App/Models/Like';
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 
 
@@ -15,17 +14,53 @@ export default class UsersController {
 
 
 
-    public async store({ response, request }) {
-        const payload = await request.all()
-        console.log(payload);
+    // public async store({ response, request }) {
+    //     const payload = await request.all()
+    //     console.log(payload);
 
-        await User.create({
-            name: payload.name,
-            email: payload.email,
-            password: payload.password
+    //     await User.create({
+    //         name: payload.name,
+    //         email: payload.email,
+    //         password: payload.password
+    //     })
+    //     return response;
+    // }
+
+
+    public async store({ response, request }) {
+        const createUserSchema = schema.create({
+            name: schema.string({ trim: true }, [
+                rules.maxLength(12),
+                rules.minLength(3),
+                rules.unique({ table: 'users', column: 'name' }),
+                rules.regex(/^[a-zA-Z-_]+$/)
+            ]),
+            email: schema.string([
+                rules.email()
+            ]),
+            password: schema.string([
+                rules.minLength(4)
+            ])
         })
-        return response;
+
+        try {
+            const payload = await request.validate({ schema: createUserSchema })
+            console.log(payload);
+
+            await User.create({
+                name: payload.name,
+                email: payload.email,
+                password: payload.password
+            })
+            return response;
+        }
+        catch (error) {
+            response.badRequest(error.messages)
+        }
     }
+
+
+
 
 }
 
