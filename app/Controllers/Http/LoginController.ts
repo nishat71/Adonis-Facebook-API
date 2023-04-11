@@ -2,8 +2,6 @@
 
 export default class LoginController {
 
-
-    
     public async store({ auth, request, response }) {
         const payload = request.all()
         

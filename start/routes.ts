@@ -41,7 +41,7 @@ Route.post('/login', async ({ auth, request, response }) => {
 
   await auth.use('web').attempt(email, password)
   response.redirect('/')
-  
+
   // try {
   //   await auth.use('web').attempt(email, password)
   //   response.redirect('/')
@@ -51,9 +51,4 @@ Route.post('/login', async ({ auth, request, response }) => {
 })
 
 
-
-Route.post('/logout', async ({ auth, response }) => {
-  await auth.use('web').logout()
-  response.redirect('/login')
-})
 
